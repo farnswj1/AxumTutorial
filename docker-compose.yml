@@ -1,0 +1,8 @@
+services:
+  app:
+    container_name: app
+    image: app
+    build: app
+    restart: always
+    ports:
+      - "80:8000"
