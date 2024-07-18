@@ -1,4 +1,4 @@
-FROM rust AS build
+FROM rust:1.75.0 AS build
 
 WORKDIR /opt/app
 
@@ -21,8 +21,11 @@ RUN cargo build --release
 # the final base image
 FROM ubuntu
 
+EXPOSE 8000
+WORKDIR /opt/app
+
 # copy the build artifact from the build stage
-COPY --from=build /opt/app/target/release/app .
+COPY --from=build /opt/app/target/release/app ./
 
 # run the binary
 CMD ["./app"]
