@@ -1,33 +1,9 @@
-use axum::{
-    http::StatusCode,
-    response::Html,
-    routing::get, 
-    serve,
-    Json,
-    Router
-};
+mod handlers;
+mod serializers;
+
+use axum::{routing::get, serve, Router};
 use tokio::net::TcpListener;
-use serde::Serialize;
-
-#[derive(Serialize)]
-struct User {
-    id: u64,
-    name: String,
-}
-
-async fn root() -> Html<&'static str> {
-    Html("<h1>Hello world!</h1>")
-}
-
-async fn plain() -> &'static str {
-    "This is plain text!"
-}
-
-// Tuples can be return to specify status codes. The default code is 200 (OK)
-async fn json() -> (StatusCode, Json<User>) {
-    let data = User { id: 12, name: String::from("John Smith")};
-    (StatusCode::OK, Json(data))
-}
+use crate::handlers::{root, plain, json};
 
 fn get_router() -> Router {
     Router::new()
