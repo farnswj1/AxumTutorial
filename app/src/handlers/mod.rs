@@ -1,8 +1,15 @@
-use axum::{http::StatusCode, response::Html, Json};
+use askama_axum::Template;
+use axum::{http::StatusCode, Json};
 use crate::serializers::User;
 
-pub async fn root() -> Html<&'static str> {
-    Html("<h1>Hello world!</h1>")
+#[derive(Template)]
+#[template(path = "index.html")]
+pub struct IndexTemplate {
+    name: &'static str
+}
+
+pub async fn root() -> IndexTemplate {
+    IndexTemplate { name: "world" }
 }
 
 pub async fn plain() -> &'static str {
