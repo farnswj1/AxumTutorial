@@ -18,6 +18,6 @@ pub async fn plain() -> &'static str {
 
 // Tuples can be returned to specify status codes. The default code is 200 (OK)
 pub async fn json() -> (StatusCode, Json<User>) {
-    let data = User { id: 12, name: String::from("John Smith") };
+    let data = User { id: 12, name: "John Smith" };
     (StatusCode::OK, Json(data))
 }
